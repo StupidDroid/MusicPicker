@@ -1,6 +1,10 @@
 import csv
 import random
 import operator
+import pafy
+import vlc
+import time
+import easygui
 
 
 def oneToFour(criterion):
@@ -144,5 +148,15 @@ with open('song_db.csv') as csvfile:
                               key=operator.itemgetter(1))[0]
         ordered_playlist.append(song_pool.pop(next_song_index))
 
+    vlc_instance = vlc.Instance()
+    player = vlc_instance.media_player_new()
     for song in ordered_playlist:
-        print(song[0])
+        video = pafy.new(song[-1])
+        best = video.getbestaudio()
+        playurl = best.url
+        Media = vlc_instance.media_new(playurl)
+        Media.get_mrl()
+        player.set_media(Media)
+        player.play()
+        while(round(player.get_position(), 2) < 1.00):
+            time.sleep(10)
