@@ -29,4 +29,13 @@ with open('song_db.csv') as csvfile:
         ("Depression", depression_input),
         ("Rebellion", rebellion_input)
     ]
-    print(numerical_inputs[3][1])
+
+    important_index = 0
+    while(important_index < 1 or important_index > 6):
+        try:
+            important_index = int(input("1. Intensity \n2. Engagement \n"
+                                        "3. Theater \n4. Sappinness \n"
+                                        "5. Depression \n6. Rebellion \n"
+                                        "Pick predominant criterion (1-6): "))
+        except ValueError:
+            pass
